@@ -1,0 +1,119 @@
+#!/bin/bash
+# sudo mkdir /home/setup
+# sudo tee /home/setup/common-requirements.txt <<EOF
+# --index-url https://pypi.python.org/simple/
+# # equivalent to python setup.py develop
+# # -e .
+# autoenv==1.0.0
+# pypandoc==1.4
+# virtualenv==16.0.0
+# virtualenvwrapper==4.8.2
+# twine==1.11.0
+# wheel==0.31.1
+# EOF
+# sudo tee /home/setup/devops-requirements.txt <<EOF
+# --index-url https://pypi.python.org/simple/
+# # equivalent to python setup.py develop
+# # -e .
+# ansible==2.6.2
+# jmespath==0.9.3
+# passlib==1.7.1
+# EOF
+# sudo apt update
+# sudo apt install -y python3-pip
+# sudo pip3 install --upgrade pip setuptools wheel
+# sudo pip3 install -r /home/setup/common-requirements.txt
+# sudo pip3 install -r /home/setup/devops-requirements.txt
+# sudo mkdir -p /opt/teamcity
+# sudo mkdir -p /opt/teamcity/var/logs
+# sudo mkdir -p /opt/teamcity/lib/jdbc
+# sudo mkdir -p /opt/teamcity/config
+# export TEAMCITY_DATA_PATH=/opt/teamcity
+sudo groupadd teamcity
+sudo useradd -g teamcity -d /opt teamcity
+sudo chown -R teamcity:teamcity /opt/teamcity
+# sudo apt-get install -y apt-transport-https dirmngr
+# echo 'deb https://apt.dockerproject.org/repo debian-stretch main' | sudo tee --append /etc/apt/sources.list
+# sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys F76221572C52609D
+# sudo apt-get update
+# sudo apt-get install -y docker-engine --allow-unauthenticated
+# sudo docker system prune -af
+# sudo docker rm $(docker ps -aq)
+# sudo docker pull jetbrains/teamcity-server
+DEBIAN_FRONTEND=noninteractive sudo apt-get update -y
+DEBIAN_FRONTEND=noninteractive sudo apt-get install -y openjdk-8-jre-headless wget
+# wget https://jdbc.postgresql.org/download/postgresql-9.4.1209.jre6.jar 
+# sudo mv postgresql-9.4.1209.jre6.jar /opt/teamcity/lib/jdbc/
+# sudo touch /opt/teamcity/config/database.properties
+# sudo tee /opt/teamcity/config/database.properties <<EOF
+# connectionUrl=jdbc:postgresql://${db_url}:${db_port}/${db_name}
+# connectionProperties.user=${db_username}
+# connectionProperties.password=${db_password}
+# EOF
+
+# # "sudo wget https://download.jetbrains.com/teamcity/TeamCity-10.0.1.tar.gz",
+# # "sudo tar -xvzf TeamCity-10.0.1.tar.gz -C /opt",
+
+# sudo docker run -it --name teamcity-server-instance -v /home/teamcity:/data/teamcity_server/datadir -v /var/log/teamcity:/opt/teamcity/logs -p 8111:8111 jetbrains/teamcity-server
+# # docker exec / name of the container / bin/bash => for trouble shooting
+# # init.d ^^  deam management system. register ^^ with initd. Needs a configuration file that include this.
+
+
+
+
+
+# # - "if [ ! -f /data/teamcity_server/datadir/lib/jdbc ]; then mkdir -p /data/teamcity_server/datadir/lib/jdbc; curl -o /data/teamcity_server/datadir/lib/jdbc/mysql-connector-java-bin.jar http://central.maven.org/maven2/mysql/mysql-connector-java/5.1.43/mysql-connector-java-5.1.43.jar; fi; if [ ! -f /data/teamcity_server/datadir/config/database.properties ]; then mkdir -p /data/teamcity_server/datadir/config; echo connectionProperties.user=teamcity > /data/teamcity_server/datadir/config/database.properties; echo connectionProperties.password=${RDSPassword} >> /data/teamcity_server/datadir/config/database.properties; echo connectionUrl=jdbc:mysql://${RDSAddress}/teamcitydb >> /data/teamcity_server/datadir/config/database.properties; fi; if [ ! -f /data/teamcity_server/datadir/plugins ]; then mkdir -p /data/teamcity_server/datadir/plugins; curl -o /data/teamcity_server/datadir/plugins/aws-ecs.zip https://teamcity.jetbrains.com/guestAuth/app/rest/builds/buildType:TestDrive_TeamCityAmazonEcsPlugin_Build20172x,tag:release/artifacts/content/aws-ecs.zip; fi; echo 'docker-ubuntu-aws' > /opt/teamcity/webapps/ROOT/WEB-INF/DistributionType.txt; exec /run-services.sh;"
+
+
+# sudo tee /opt/teamcity/config/database.properties >/dev/null <<EOF
+# connectionUrl=jdbc:postgresql://teamcity.culek1uxo0ds.us-east-1.rds.amazonaws.com:5432/teamcity
+# connectionProperties.user=teamcityuser
+# connectionProperties.password=terraform123
+# EOF
+
+
+# # Trying direct download
+# sudo wget https://download.jetbrains.com/teamcity/TeamCity-10.0.1.tar.gz
+# sudo tar -xvzf TeamCity-10.0.1.tar.gz -C /opt
+# sudo mkdir -p /opt/TeamCityData
+# sudo mkdir -p /opt/TeamCityData/lib/jdbc
+# sudo chown -R teamcity:teamcity /opt/TeamCityData
+# wget https://jdbc.postgresql.org/download/postgresql-9.4.1209.jre6.jar
+# sudo mv postgresql-9.4.1209.jre6.jar /opt/TeamCityData/lib/jdbc/
+# sudo mkdir /opt/TeamCityData/config
+# sudo chown -R teamcity:teamcity /opt/TeamCityData/config
+
+# export TEAMCITY_DATA_PATH=/opt/TeamCityData
+# sudo tee /opt/TeamCityData/config/database.properties <<EOF
+# connectionUrl=jdbc:postgresql://${pg_url}:${pg_port}/${pg_database}
+# connectionProperties.user=${pg_username}
+# connectionProperties.password=${pg_password}
+# EOF
+# sudo /opt/TeamCity/bin/teamcity-server.sh start
+
+
+# ------------ Different way of setting up --- OLD --- not confirmed:
+# sudo groupadd teamcity
+# sudo useradd -g teamcity -d /opt teamcity
+# sudo chown -R teamcity:teamcity /opt/teamcity
+# DEBIAN_FRONTEND=noninteractive sudo apt-get update -y
+# DEBIAN_FRONTEND=noninteractive sudo apt-get install -y openjdk-8-jre-headless wget
+
+# sudo wget https://download.jetbrains.com/teamcity/TeamCity-10.0.1.tar.gz
+# sudo tar -xvzf TeamCity-10.0.1.tar.gz -C /opt
+# sudo mkdir -p /opt/TeamCityData
+# sudo mkdir -p /opt/TeamCityData/lib/jdbc
+# sudo chown -R teamcity:teamcity /opt/TeamCityData
+# wget https://jdbc.postgresql.org/download/postgresql-9.4.1209.jre6.jar
+# sudo mv postgresql-9.4.1209.jre6.jar /opt/TeamCityData/lib/jdbc/
+# sudo mkdir /opt/TeamCityData/config
+# sudo chown -R teamcity:teamcity /opt/TeamCityData/config
+# sudo mkdir /opt/TeamCity/bin/
+
+# export TEAMCITY_DATA_PATH=/opt/TeamCityData
+# sudo tee /opt/TeamCityData/config/database.properties <<EOF
+# connectionUrl=jdbc:postgresql://${db_url}:${db_port}/${db_name}
+# connectionProperties.user=${db_username}
+# connectionProperties.password=${db_password}
+# EOF
+# sudo /opt/TeamCity/bin/teamcity-server.sh start
