@@ -1,6 +1,6 @@
 Status: **Running TeamCity connected to a public EC2 container** this is bare minimum, there's no disaster recovery, auto-scaling, IP limitations etc
 
-I am polishing my article that explains everything I have built step by step. The article is still in progress as of Dec 30th, but you need it immediate you can read it on my [WIP blog](http://sarahaslanifar.com/infrastructure/as/code/2018/12/26/terraform-teamcity-aws.html). 
+I am polishing my article that explains everything I have built step by step. The article is still in progress as of Dec 30th, but you need it immediate you can read it on my [blog](http://sarahaslanifar.com/infrastructure/as/code/2018/12/26/terraform-teamcity-aws.html). 
 
 If you want to skip the tutorial and just get TeamCity up and running:
 
